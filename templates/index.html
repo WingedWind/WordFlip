@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}WordFlip{% endblock %}
+
+{% block content %}
+<section class="hero-panel">
+    <div class="hero-copy">
+        <p class="eyebrow">Удобное запоминание терминов</p>
+        <h1>WordFlip — твой личный набор карточек для повторения</h1>
+        <p class="hero-description">
+            Собирай слова и определения по темам, формируй собственные наборы и переходи к тренировке в пару кликов.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="{% url 'add-flashcard' %}" class="button-primary">Создать карточку</a>
+            <a href="{% url 'flashcards-list' %}" class="button-ghost">Открыть список</a>
+        </div>
+    </div>
+
+    <div class="hero-side">
+        <div class="mini-stat">
+            <span class="mini-stat-label">Формат</span>
+            <strong>Наборы + тренировка</strong>
+        </div>
+        <div class="mini-stat">
+            <span class="mini-stat-label">Подходит для</span>
+            <strong>Языков, терминов, конспектов</strong>
+        </div>
+        <div class="mini-stat">
+            <span class="mini-stat-label">Режим</span>
+            <strong>Быстрое повторение</strong>
+        </div>
+    </div>
+</section>
+
+<section class="overview-grid">
+    <article class="info-tile">
+        <h2>Создание карточек</h2>
+        <p>Добавляй термин, пояснение и сохраняй его в существующий или новый набор.</p>
+    </article>
+
+    <article class="info-tile">
+        <h2>Работа с наборами</h2>
+        <p>Сортируй карточки по темам, чтобы удобно повторять материал по отдельным разделам.</p>
+    </article>
+
+    <article class="info-tile">
+        <h2>Режим тренировки</h2>
+        <p>Открывай нужный набор и проходи карточки по очереди в интерактивном формате.</p>
+    </article>
+</section>
+{% endblock %}

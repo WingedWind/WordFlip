@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WordFlip{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav-shell">
+            <a href="{% url 'home' %}" class="brand-mark">WordFlip</a>
+
+            <nav class="main-nav">
+                <a href="{% url 'home' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+                    Главная
+                </a>
+                <a href="{% url 'flashcards-list' %}" class="nav-link {% if '/flashcards/' in request.path and '/edit/' not in request.path and '/new/' not in request.path %}active{% endif %}">
+                    Карточки
+                </a>
+                <a href="{% url 'add-flashcard' %}" class="nav-link {% if '/flashcards/new/' in request.path %}active{% endif %}">
+                    Добавить
+                </a>
+                <a href="{% url 'practice' %}" class="nav-link {% if '/practice/' in request.path %}active{% endif %}">
+                    Тренировка
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-wrap">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Новая карточка{% endblock %}
+
+{% block content %}
+{% if form.non_field_errors %}
+    <div class="alert-box">
+        {{ form.non_field_errors.0 }}
+    </div>
+{% endif %}
+
+<section class="editor-layout">
+    <div class="editor-sidebar">
+        <p class="eyebrow">Новый материал</p>
+        <h1>Добавление карточки</h1>
+        <p class="editor-text">
+            Заполни короткий термин и пояснение, затем выбери существующий набор или создай новый.
+        </p>
+
+        <div class="editor-note">
+            <strong>Совет:</strong>
+            чем короче формулировка на лицевой стороне карточки, тем удобнее повторение.
+        </div>
+    </div>
+
+    <div class="editor-card">
+        <form method="post" class="editor-form">
+            {% csrf_token %}
+
+            <div class="input-block">
+                <label class="input-label">Термин</label>
+                {{ form.term }}
+                {% if form.term.errors %}
+                    <div class="field-error">{{ form.term.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="input-block">
+                <label class="input-label">Пояснение</label>
+                {{ form.meaning }}
+                {% if form.meaning.errors %}
+                    <div class="field-error">{{ form.meaning.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="switch-panel">
+                <button type="button" id="existing-collection-btn" class="switch-btn active">
+                    Выбрать набор
+                </button>
+                <button type="button" id="new-collection-btn" class="switch-btn">
+                    Создать новый
+                </button>
+            </div>
+
+            <div id="existing-collection-group" class="input-block">
+                <label class="input-label">Текущие наборы</label>
+                {{ form.deck }}
+                {% if form.deck.errors %}
+                    <div class="field-error">{{ form.deck.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div id="new-collection-group" class="input-block" style="display: none;">
+                <label class="input-label">Название нового набора</label>
+                {{ form.new_deck }}
+                {% if form.new_deck.errors %}
+                    <div class="field-error">{{ form.new_deck.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="editor-actions">
+                <button type="submit" class="button-primary wide-button">Сохранить карточку</button>
+                <a href="{% url 'flashcards-list' %}" class="button-ghost wide-button">Перейти к списку</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="{% static 'js/cards.js' %}"></script>
+{% endblock %}

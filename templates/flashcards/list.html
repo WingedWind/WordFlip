@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Карточки{% endblock %}
+
+{% block content %}
+<section class="section-head">
+    <div>
+        <p class="eyebrow">База карточек</p>
+        <h1>
+            {% if selected_deck %}
+                Набор: {{ selected_deck.title }}
+            {% else %}
+                Все карточки
+            {% endif %}
+        </h1>
+        <p class="section-text">Выбирай набор и просматривай сохранённые термины с пояснениями.</p>
+    </div>
+
+    <a href="{% url 'add-flashcard' %}" class="button-primary">Новая карточка</a>
+</section>
+
+<div class="filter-box">
+    <label for="deck-filter" class="input-label">Показать набор</label>
+    <select id="deck-filter" class="input-field">
+        <option value="all">Все наборы</option>
+        {% for deck in decks %}
+            <option value="{{ deck.id }}" {% if selected_deck.id == deck.id %}selected{% endif %}>
+                {{ deck.title }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="cards-grid">
+    {% for flashcard in flashcards %}
+        <article class="flashcard-tile">
+            <div class="tile-tag">{{ flashcard.deck.title }}</div>
+            <h2>{{ flashcard.term }}</h2>
+            <p>{{ flashcard.meaning }}</p>
+            <a href="{% url 'edit-flashcard' flashcard.id %}" class="tile-link">Редактировать</a>
+        </article>
+    {% empty %}
+        <div class="empty-box">
+            <p>Карточек пока нет. Добавь первую запись, чтобы начать работу.</p>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.getElementById('deck-filter').addEventListener('change', function() {
+        const deckId = this.value;
+        window.location.href = `?deck_id=${deckId}`;
+    });
+</script>
+{% endblock %}

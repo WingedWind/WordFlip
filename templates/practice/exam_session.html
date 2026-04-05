@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Тренировка — {{ deck.title }}{% endblock %}
+
+{% block content %}
+<section class="section-head compact-head">
+    <div>
+        <p class="eyebrow">Тренировка</p>
+        <h1>{{ deck.title }}</h1>
+        <p class="section-text">Нажимай на карточку, чтобы открыть пояснение и перейти к следующему термину.</p>
+    </div>
+</section>
+
+<div id="exam-card" class="session-card">
+    <div id="exam-word" class="session-term"></div>
+    <div id="exam-answer" class="session-meaning hidden"></div>
+</div>
+
+<p id="exam-progress" class="session-progress"></p>
+
+<script>
+    const cards = [
+        {% for flashcard in flashcards %}
+            {
+                word: "{{ flashcard.term|escapejs }}",
+                explanation: "{{ flashcard.meaning|escapejs }}"
+            }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+</script>
+
+<script src="{% static 'js/exam-session.js' %}"></script>
+{% endblock %}

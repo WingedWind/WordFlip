@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Тренировка{% endblock %}
+
+{% block content %}
+<section class="section-head">
+    <div>
+        <p class="eyebrow">Режим повторения</p>
+        <h1>Выбор набора</h1>
+        <p class="section-text">Открой любой набор, чтобы начать последовательную тренировку карточек.</p>
+    </div>
+</section>
+
+<div class="practice-list">
+    {% for deck in decks %}
+        <a href="{% url 'practice-session' deck.id %}" class="practice-item">
+            <span class="practice-item-title">{{ deck.title }}</span>
+            <span class="practice-item-arrow">→</span>
+        </a>
+    {% empty %}
+        <div class="empty-box">
+            <p>Сначала добавь хотя бы один набор с карточками.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
